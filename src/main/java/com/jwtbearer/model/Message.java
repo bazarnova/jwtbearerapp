@@ -3,7 +3,7 @@ package com.jwtbearer.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "messages")
+@Table(name = "messages", schema = "jwtbearer")
 public class Message {
 
     @Id
@@ -17,6 +17,11 @@ public class Message {
     private String message;
 
     public Message() {
+    }
+
+    public Message(User user, String message) {
+        this.user = user;
+        this.message = message;
     }
 
     public Message(Long id, User user, String message) {

@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface MessageRepository extends JpaRepository<User, Long> {
+public interface MessageRepository extends JpaRepository<Message, Long> {
 
     @Modifying(clearAutomatically = true)
 //    @Query(value = "SELECT message FROM " +

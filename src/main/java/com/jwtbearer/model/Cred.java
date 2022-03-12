@@ -1,32 +1,16 @@
 package com.jwtbearer.model;
 
-import javax.persistence.*;
+public class Cred {
 
-@Entity
-@Table(name = "users", schema = "jwtbearer")
-public class User {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     private String name;
     private String password;
 
-    public User() {
+    public Cred() {
     }
 
-    public User(Long id, String name, String password) {
-        this.id = id;
+    public Cred(String name, String password) {
         this.name = name;
         this.password = password;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -45,4 +29,3 @@ public class User {
         this.password = password;
     }
 }
-

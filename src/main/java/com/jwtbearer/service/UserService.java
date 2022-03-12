@@ -1,11 +1,7 @@
 package com.jwtbearer.service;
 
-import com.jwtbearer.model.User;
-
-import java.util.Optional;
+import com.jwtbearer.model.Cred;
 
 public interface UserService {
-
-    Optional<User> findById(Long id);
-    User create(User user);
+    String getTokenForCredentials(Cred cred);
 }
