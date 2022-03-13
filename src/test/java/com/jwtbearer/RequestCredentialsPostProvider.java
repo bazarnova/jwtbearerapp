@@ -61,31 +61,5 @@ public class RequestCredentialsPostProvider implements ArgumentsProvider {
                 .iterate(0, n -> n + 5)
                 .limit(10)
                 .collect(Collectors.toList());
-
-
-//        List<List<String>> expectedResponse = new ArrayList<>();
-//        List<String> messList = new ArrayList<>();
-//        for (int i = 50-1; i >= 0; i--) {
-//            List<String> list = new ArrayList<>();
-//            messList.add(name + "send message " + (i));
-//            if (i % 5 == 0) {
-//                list = messList;
-//                expectedResponse.add(list);
-//            }
-//        }
-//        return expectedResponse;
-//    }
-//
-//        Map<Integer, List<String>> expectedResponses = new HashMap<>();
-//        List<String> messList = new ArrayList<>();
-//        int n = 0;
-//        for (int i = 50 - 1; i >= 0; i--) {
-//            messList.add(name + "send message " + (i));
-//            n = ((i + "").endsWith("5") && n == 0 ) ? 10 : n + 10;
-////            if (i % 5 == 0) {
-////                expectedResponses.put(i, messList);
-////            }
-//        }
-//        return expectedResponses;
     }
 }
