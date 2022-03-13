@@ -1,12 +1,14 @@
 package com.jwtbearer.model;
 
 public class RequestMessage {
-    private String message;
     private String name;
+    private String message;
 
-    public RequestMessage(String message, String name) {
-        this.message = message;
+
+    public RequestMessage(String name, String message) {
         this.name = name;
+        this.message = message;
+
     }
 
     public RequestMessage() {
