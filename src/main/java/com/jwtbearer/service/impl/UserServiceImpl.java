@@ -1,6 +1,6 @@
 package com.jwtbearer.service.impl;
 
-import com.jwtbearer.model.Cred;
+import com.jwtbearer.model.RequestCredentials;
 import com.jwtbearer.model.User;
 import com.jwtbearer.repository.UserRepository;
 import com.jwtbearer.security.JwtTokenProvider;
@@ -18,19 +18,19 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private JwtTokenProvider tokenProvider;
 
-    private User validateUserAndPassword(Cred cred) {
-        if (cred == null
-                || Strings.isBlank(cred.getName())
-                || Strings.isBlank(cred.getPassword())) {
+    private User validateUserAndPassword(RequestCredentials requestCredentials) {
+        if (requestCredentials == null
+                || Strings.isBlank(requestCredentials.getName())
+                || Strings.isBlank(requestCredentials.getPassword())) {
             throw new RuntimeException("Payload is null");
         }
 
-        User user = userRepository.findByName(cred.getName());
+        User user = findByName(requestCredentials.getName());
         if (user == null) {
             throw new RuntimeException("User not found");
         }
 
-        if (user.getPassword() != null && user.getPassword().equals(cred.getPassword())) {
+        if (user.getPassword() != null && user.getPassword().equals(requestCredentials.getPassword())) {
             return user;
         }
 
@@ -38,8 +38,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String getTokenForCredentials(Cred cred) {
-        User user = validateUserAndPassword(cred);
+    public String getTokenForCredentials(RequestCredentials requestCredentials) {
+        User user = validateUserAndPassword(requestCredentials);
         return tokenProvider.createToken(user);
+    }
+
+    @Override
+    public User findByName(String name) {
+        return userRepository.findByName(name);
     }
 }

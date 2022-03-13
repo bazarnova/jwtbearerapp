@@ -1,6 +1,6 @@
 package com.jwtbearer.controller;
 
-import com.jwtbearer.model.Cred;
+import com.jwtbearer.model.RequestCredentials;
 import com.jwtbearer.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,10 +22,10 @@ public class LoginController {
     private UserService userService;
 
     @PostMapping("login")
-    public ResponseEntity<Map<String, String>> login(@RequestBody Cred cred) {
+    public ResponseEntity<Map<String, String>> login(@RequestBody RequestCredentials requestCredentials) {
         try {
             Map<String, String> response = new HashMap<>();
-            response.put("token", userService.getTokenForCredentials(cred));
+            response.put("token", userService.getTokenForCredentials(requestCredentials));
 
             return ResponseEntity.ok(response);
         } catch (AuthenticationException e) {

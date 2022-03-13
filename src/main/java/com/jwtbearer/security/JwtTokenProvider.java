@@ -46,7 +46,8 @@ public class JwtTokenProvider {
     }
 
     public Authentication getAuthentication(String token) {
-        User user = userRepository.findByName(getUsername(token));
+        String userName = getUsername(token);
+        User user = userRepository.findByName(userName);
         List<? extends GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(user.getId() + ""));
         UserDetails userDetails = new org.springframework.security.core.userdetails.User(user.getName(), user.getPassword(), authorities);
         return new UsernamePasswordAuthenticationToken(userDetails, "", authorities);

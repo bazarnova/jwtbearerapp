@@ -1,14 +1,14 @@
 package com.jwtbearer.model;
 
-public class Cred {
+public class RequestCredentials {
 
     private String name;
     private String password;
 
-    public Cred() {
+    public RequestCredentials() {
     }
 
-    public Cred(String name, String password) {
+    public RequestCredentials(String name, String password) {
         this.name = name;
         this.password = password;
     }

@@ -1,9 +1,9 @@
 package com.jwtbearer.controller;
 
 import com.jwtbearer.model.Message;
-import com.jwtbearer.model.Msg;
-import com.jwtbearer.repository.MessageRepository;
-import com.jwtbearer.repository.UserRepository;
+import com.jwtbearer.model.RequestMessage;
+import com.jwtbearer.service.MessageService;
+import com.jwtbearer.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -13,34 +13,49 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/")
 public class MessageController {
 
     @Autowired
-    private MessageRepository messageRepository;
+    private MessageService messageService;
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @PostMapping("/message")
-    public ResponseEntity<Map<String, String>> sendMessage(@RequestBody Msg msg) {
-        try {
-            Message m = new Message(userRepository.findByName(msg.getName()), msg.getMessage());
-            messageRepository.saveAndFlush(m);
+    public ResponseEntity<List<String>> sendMessage(@RequestBody RequestMessage requestMessage) {
 
-            Map<String, String> response = new HashMap<>();
-            response.put("token", m.getId() + "");
+        if (isRequiredHistory(requestMessage)) {
+            List<Message> response = messageService.getMessages(requestMessage);
 
-            return ResponseEntity.ok(response);
-        } catch (AuthenticationException e) {
-            throw new BadCredentialsException("Invalid username or password");
+            return ResponseEntity.ok(response.stream()
+                    .map(Message::getMessage)
+                    .collect(Collectors.toList())
+            );
+        } else {
+            try {
+                Message message = new Message(userService.findByName(requestMessage.getName()), requestMessage.getMessage());
+                messageService.save(message);
+
+                List<String> response = new ArrayList<>();
+                response.add("Message saved");
+
+                return ResponseEntity.ok(response);
+
+            } catch (AuthenticationException e) {
+                throw new BadCredentialsException("Invalid username or password");
+            }
         }
     }
 
-
-
+    public boolean isRequiredHistory(RequestMessage requestMessage) {
+        String message = requestMessage.getMessage();
+        String[] words = message.split(" ");
+        return words.length >= 2 && words[0].equalsIgnoreCase("history") && words[1].matches("[0-9]+");
+    }
 }

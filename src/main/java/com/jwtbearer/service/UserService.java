@@ -1,7 +1,10 @@
 package com.jwtbearer.service;
 
-import com.jwtbearer.model.Cred;
+import com.jwtbearer.model.RequestCredentials;
+import com.jwtbearer.model.User;
 
 public interface UserService {
-    String getTokenForCredentials(Cred cred);
+    String getTokenForCredentials(RequestCredentials requestCredentials);
+    User findByName(String name);
+
 }
