@@ -5,16 +5,15 @@ import com.jwtbearer.model.RequestMessage;
 import com.jwtbearer.service.MessageService;
 import com.jwtbearer.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -28,22 +27,21 @@ public class MessageController {
     private UserService userService;
 
     @PostMapping("/message")
-    public ResponseEntity<List<String>> sendMessage(@RequestBody RequestMessage requestMessage) {
+    public ResponseEntity<Map<String, Object>> sendMessage(@RequestBody RequestMessage requestMessage) {
 
         if (isRequiredHistory(requestMessage)) {
-            List<Message> response = messageService.getMessages(requestMessage);
-
-            return ResponseEntity.ok(response.stream()
+            List<Message> messageList = messageService.getMessages(requestMessage);
+            Map<String, Object> response = new HashMap<>();
+            response.put("response", messageList.stream()
                     .map(Message::getMessage)
-                    .collect(Collectors.toList())
-            );
+                    .collect(Collectors.toList()));
+            return ResponseEntity.ok(response);
         } else {
             try {
-                Message message = new Message(userService.findByName(requestMessage.getName()), requestMessage.getMessage());
-                messageService.save(message);
+                messageService.parseAndSave(requestMessage);
 
-                List<String> response = new ArrayList<>();
-                response.add("Message saved");
+                Map<String, Object> response = new HashMap<>();
+                response.put("response", "Message saved");
 
                 return ResponseEntity.ok(response);
 
@@ -53,9 +51,16 @@ public class MessageController {
         }
     }
 
+    @ExceptionHandler({RuntimeException.class})
+    public ResponseEntity<Map<String, String>> handleException(RuntimeException ex) {
+        Map<String, String> m = new HashMap<>();
+        m.put("Error", ex.getMessage());
+        return new ResponseEntity<>(m, HttpStatus.BAD_REQUEST);
+    }
+
     public boolean isRequiredHistory(RequestMessage requestMessage) {
         String message = requestMessage.getMessage();
         String[] words = message.split(" ");
-        return words.length >= 2 && words[0].equalsIgnoreCase("history") && words[1].matches("[0-9]+");
+        return words.length >= 2 && "history".equalsIgnoreCase(words[0]) && words[1].matches("[0-9]+");
     }
 }

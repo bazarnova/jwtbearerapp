@@ -71,9 +71,9 @@ public class FirstTest {
             String json = new ObjectMapper().writeValueAsString(requestMessage);
 
             HttpEntity<String> entity = new HttpEntity<>(json, headersMessage);
-            ResponseEntity<List> responseGetMessages = restTemplate.postForEntity("http://localhost:" + port + "/message", entity, List.class);
+            ResponseEntity<Map> responseGetMessages = restTemplate.postForEntity("http://localhost:" + port + "/message", entity, Map.class);
 
-            List history = responseGetMessages.getBody();
+            List<String> history = (List<String>) responseGetMessages.getBody().get("response");
 
             assertEquals(expectedResponse.get(i + 1), history.size());
             assertEquals(HttpStatus.OK, responseGetMessages.getStatusCode());

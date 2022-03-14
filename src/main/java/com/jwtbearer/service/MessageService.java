@@ -9,4 +9,6 @@ public interface MessageService {
     List<Message> getMessages(RequestMessage requestMessage);
 
     void save(Message message);
+
+    void parseAndSave(RequestMessage requestMessage);
 }

@@ -11,6 +11,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
@@ -51,6 +54,15 @@ public class JwtTokenProvider {
         List<? extends GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(user.getId() + ""));
         UserDetails userDetails = new org.springframework.security.core.userdetails.User(user.getName(), user.getPassword(), authorities);
         return new UsernamePasswordAuthenticationToken(userDetails, "", authorities);
+    }
+
+    public String getCurrentUserNameFromToken() {
+        ServletRequestAttributes requestAttributes = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes());
+        if (requestAttributes == null) {
+            return null;
+        }
+        String token = resolveToken(requestAttributes.getRequest());
+        return getUsername(token);
     }
 
     public String getUsername(String token) {
