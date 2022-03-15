@@ -57,7 +57,7 @@ public class MessageServiceImpl implements MessageService {
     public String getHistorySize(String message) {
         String[] words = message.split(" ");
 
-        if (words.length >= 2 && "history".equalsIgnoreCase(words[0]) && words[1].matches("[0-9]+")) {
+        if (words.length == 2 && "history".equalsIgnoreCase(words[0]) && words[1].matches("[0-9]+")) {
             return words[1];
         } else {
             return null;
