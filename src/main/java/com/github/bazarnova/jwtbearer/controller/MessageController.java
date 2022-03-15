@@ -31,7 +31,7 @@ public class MessageController {
     public ResponseEntity<Map<String, Object>> sendMessage(@RequestBody RequestMessage requestMessage) {
 
         String historyRequest = messageService.getHistorySize(requestMessage.getMessage());
-        if (Strings.isBlank(historyRequest)) {
+        if (Strings.isNotBlank(historyRequest)) {
             List<Message> messageList = messageService.getMessages(requestMessage);
             Map<String, Object> response = new HashMap<>();
             response.put("response", messageList.stream()
