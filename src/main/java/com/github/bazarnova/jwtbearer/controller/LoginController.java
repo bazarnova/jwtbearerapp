@@ -1,7 +1,7 @@
-package com.jwtbearer.controller;
+package com.github.bazarnova.jwtbearer.controller;
 
-import com.jwtbearer.model.RequestCredentials;
-import com.jwtbearer.service.UserService;
+import com.github.bazarnova.jwtbearer.model.RequestCredentials;
+import com.github.bazarnova.jwtbearer.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;

@@ -1,4 +1,4 @@
-package com.jwtbearer.model;
+package com.github.bazarnova.jwtbearer.model;
 
 import javax.persistence.*;
 

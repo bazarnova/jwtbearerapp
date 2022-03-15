@@ -1,7 +1,7 @@
-package com.jwtbearer.security;
+package com.github.bazarnova.jwtbearer.security;
 
-import com.jwtbearer.model.User;
-import com.jwtbearer.repository.UserRepository;
+import com.github.bazarnova.jwtbearer.model.User;
+import com.github.bazarnova.jwtbearer.repository.UserRepository;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

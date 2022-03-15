@@ -1,7 +1,8 @@
-package com.jwtbearer.service;
+package com.github.bazarnova.jwtbearer.service;
 
-import com.jwtbearer.model.RequestCredentials;
-import com.jwtbearer.model.User;
+
+import com.github.bazarnova.jwtbearer.model.RequestCredentials;
+import com.github.bazarnova.jwtbearer.model.User;
 
 public interface UserService {
     String getTokenForCredentials(RequestCredentials requestCredentials);

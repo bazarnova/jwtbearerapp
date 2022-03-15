@@ -1,4 +1,4 @@
-package com.jwtbearer.config;
+package com.github.bazarnova.jwtbearer.config;
 
 import org.flywaydb.core.Flyway;
 import org.springframework.boot.autoconfigure.flyway.FlywayMigrationStrategy;

@@ -1,7 +1,7 @@
-package com.jwtbearer.config;
+package com.github.bazarnova.jwtbearer.config;
 
-import com.jwtbearer.security.JwtTokenFilter;
-import com.jwtbearer.security.JwtTokenProvider;
+import com.github.bazarnova.jwtbearer.security.JwtTokenFilter;
+import com.github.bazarnova.jwtbearer.security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

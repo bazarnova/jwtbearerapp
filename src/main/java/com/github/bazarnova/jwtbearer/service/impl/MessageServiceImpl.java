@@ -1,12 +1,12 @@
-package com.jwtbearer.service.impl;
+package com.github.bazarnova.jwtbearer.service.impl;
 
-import com.jwtbearer.model.Message;
-import com.jwtbearer.model.RequestMessage;
-import com.jwtbearer.model.User;
-import com.jwtbearer.repository.MessageRepository;
-import com.jwtbearer.security.JwtTokenProvider;
-import com.jwtbearer.service.MessageService;
-import com.jwtbearer.service.UserService;
+import com.github.bazarnova.jwtbearer.model.Message;
+import com.github.bazarnova.jwtbearer.model.RequestMessage;
+import com.github.bazarnova.jwtbearer.model.User;
+import com.github.bazarnova.jwtbearer.repository.MessageRepository;
+import com.github.bazarnova.jwtbearer.security.JwtTokenProvider;
+import com.github.bazarnova.jwtbearer.service.MessageService;
+import com.github.bazarnova.jwtbearer.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,15 +26,15 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public List<Message> getMessages(RequestMessage requestMessage) {
+        String userName = requestMessage.getName();
         String message = requestMessage.getMessage();
-        String[] words = message.split(" ");
 
-        Integer count = Integer.parseInt(words[1]);
+        int count = Integer.parseInt(getHistorySize(message));
         if (count > 500) {
             count = 500;
         }
-        String userName = requestMessage.getName();
-        return messageRepository.findMessagesByUserId(count, userName);
+
+        return messageRepository.findHistorySizeForUser(count, userName);
     }
 
     @Override
@@ -52,6 +52,16 @@ public class MessageServiceImpl implements MessageService {
         User user = userService.findByName(userFromToken);
         Message message = new Message(user, requestMessage.getMessage());
         save(message);
+    }
+
+    public String getHistorySize(String message) {
+        String[] words = message.split(" ");
+
+        if (words.length >= 2 && "history".equalsIgnoreCase(words[0]) && words[1].matches("[0-9]+")) {
+            return words[1];
+        } else {
+            return null;
+        }
     }
 
 }

@@ -1,10 +1,10 @@
-package com.jwtbearer.service.impl;
+package com.github.bazarnova.jwtbearer.service.impl;
 
-import com.jwtbearer.model.RequestCredentials;
-import com.jwtbearer.model.User;
-import com.jwtbearer.repository.UserRepository;
-import com.jwtbearer.security.JwtTokenProvider;
-import com.jwtbearer.service.UserService;
+import com.github.bazarnova.jwtbearer.model.RequestCredentials;
+import com.github.bazarnova.jwtbearer.model.User;
+import com.github.bazarnova.jwtbearer.repository.UserRepository;
+import com.github.bazarnova.jwtbearer.security.JwtTokenProvider;
+import com.github.bazarnova.jwtbearer.service.UserService;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

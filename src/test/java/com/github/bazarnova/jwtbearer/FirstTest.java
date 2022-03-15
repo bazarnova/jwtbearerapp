@@ -1,10 +1,10 @@
-package com.jwtbearer;
+package com.github.bazarnova.jwtbearer;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jwtbearer.model.RequestCredentials;
-import com.jwtbearer.model.RequestMessage;
-import com.jwtbearer.model.User;
+import com.github.bazarnova.jwtbearer.model.RequestCredentials;
+import com.github.bazarnova.jwtbearer.model.RequestMessage;
+import com.github.bazarnova.jwtbearer.model.User;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ArgumentsSource;
 import org.springframework.beans.factory.annotation.Autowired;

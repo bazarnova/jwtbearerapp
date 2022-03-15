@@ -1,9 +1,10 @@
-package com.jwtbearer.controller;
+package com.github.bazarnova.jwtbearer.controller;
 
-import com.jwtbearer.model.Message;
-import com.jwtbearer.model.RequestMessage;
-import com.jwtbearer.service.MessageService;
-import com.jwtbearer.service.UserService;
+import com.github.bazarnova.jwtbearer.model.Message;
+import com.github.bazarnova.jwtbearer.model.RequestMessage;
+import com.github.bazarnova.jwtbearer.service.MessageService;
+import com.github.bazarnova.jwtbearer.service.UserService;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +30,8 @@ public class MessageController {
     @PostMapping("/message")
     public ResponseEntity<Map<String, Object>> sendMessage(@RequestBody RequestMessage requestMessage) {
 
-        if (isRequiredHistory(requestMessage)) {
+        String historyRequest = messageService.getHistorySize(requestMessage.getMessage());
+        if (Strings.isBlank(historyRequest)) {
             List<Message> messageList = messageService.getMessages(requestMessage);
             Map<String, Object> response = new HashMap<>();
             response.put("response", messageList.stream()
@@ -56,11 +58,5 @@ public class MessageController {
         Map<String, String> m = new HashMap<>();
         m.put("Error", ex.getMessage());
         return new ResponseEntity<>(m, HttpStatus.BAD_REQUEST);
-    }
-
-    public boolean isRequiredHistory(RequestMessage requestMessage) {
-        String message = requestMessage.getMessage();
-        String[] words = message.split(" ");
-        return words.length >= 2 && "history".equalsIgnoreCase(words[0]) && words[1].matches("[0-9]+");
     }
 }

@@ -1,4 +1,4 @@
-package com.jwtbearer.model;
+package com.github.bazarnova.jwtbearer.model;
 
 public class RequestMessage {
     private String name;

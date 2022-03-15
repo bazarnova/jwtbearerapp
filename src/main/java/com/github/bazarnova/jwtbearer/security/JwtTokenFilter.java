@@ -1,4 +1,4 @@
-package com.jwtbearer.security;
+package com.github.bazarnova.jwtbearer.security;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

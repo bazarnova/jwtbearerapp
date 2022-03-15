@@ -1,6 +1,6 @@
-package com.jwtbearer.repository;
+package com.github.bazarnova.jwtbearer.repository;
 
-import com.jwtbearer.model.Message;
+import com.github.bazarnova.jwtbearer.model.Message;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -18,7 +18,7 @@ public class MessageRepositoryImpl extends SimpleJpaRepository<Message, Long> im
     }
 
     @Override
-    public List<Message> findMessagesByUserId(Integer count, String name) {
+    public List<Message> findHistorySizeForUser(Integer count, String name) {
 
         List<Message> resultList = entityManager.createQuery(
                         "SELECT m " +

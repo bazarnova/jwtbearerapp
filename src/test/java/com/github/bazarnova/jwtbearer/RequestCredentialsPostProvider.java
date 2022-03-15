@@ -1,6 +1,6 @@
-package com.jwtbearer;
+package com.github.bazarnova.jwtbearer;
 
-import com.jwtbearer.model.User;
+import com.github.bazarnova.jwtbearer.model.User;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.ArgumentsProvider;

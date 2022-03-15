@@ -1,7 +1,8 @@
-package com.jwtbearer.service;
+package com.github.bazarnova.jwtbearer.service;
 
-import com.jwtbearer.model.Message;
-import com.jwtbearer.model.RequestMessage;
+
+import com.github.bazarnova.jwtbearer.model.Message;
+import com.github.bazarnova.jwtbearer.model.RequestMessage;
 
 import java.util.List;
 
@@ -11,4 +12,6 @@ public interface MessageService {
     void save(Message message);
 
     void parseAndSave(RequestMessage requestMessage);
+
+    String getHistorySize(String message);
 }

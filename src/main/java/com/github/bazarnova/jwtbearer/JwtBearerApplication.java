@@ -1,4 +1,4 @@
-package com.jwtbearer;
+package com.github.bazarnova.jwtbearer;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
