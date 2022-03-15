@@ -1,9 +1,9 @@
-package com.jwtbearer.model;
+package com.github.bazarnova.jwtbearer.model;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "users")
+@Table(name = "users", schema = "jwtbearer")
 public class User {
 
     @Id
@@ -17,6 +17,11 @@ public class User {
 
     public User(Long id, String name, String password) {
         this.id = id;
+        this.name = name;
+        this.password = password;
+    }
+
+    public User(String name, String password) {
         this.name = name;
         this.password = password;
     }

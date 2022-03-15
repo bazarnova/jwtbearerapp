@@ -1,14 +1,11 @@
-package com.jwtbearer.repository;
+package com.github.bazarnova.jwtbearer.repository;
 
-import com.jwtbearer.model.User;
+import com.github.bazarnova.jwtbearer.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-
+    User findByName(String name);
 }
